@@ -1,0 +1,11 @@
+packages:
+  - name: default
+    functions:
+      - name: delete-account
+        runtime: nodejs:18
+      - name: request-otp
+        runtime: nodejs:18
+      - name: validate-otp
+        runtime: nodejs:18
+      - name: validate-token
+        runtime: nodejs:18

@@ -1,0 +1,16 @@
+{
+  "name": "bearlysocial-backend",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "npm run sync-libraries && node server.js",
+    "sync-libraries": "node -e \"const fs = require('fs'); const p = './packages/default'; fs.readdirSync(p).filter(d => fs.statSync(`${p}/${d}`).isDirectory()).forEach(d => fs.readdirSync('./lib').forEach(f => fs.copyFileSync(`./lib/${f}`, `${p}/${d}/${f}`)));\""
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongodb": "^6.8.0"
+  },
+  "devDependencies": {
+    "shx": "^0.3.4"
+  }
+}
