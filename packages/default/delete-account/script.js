@@ -1,46 +1,22 @@
+import { ObjectId } from "mongodb";
 import { connectToDatabase } from "./mongodb-client.js";
 
-export const deleteAccount = async (args) => {
-  const { id, token } = args;
+export const deleteAccount = async ({ id, token }) => {
+  try {
+    const db = await connectToDatabase();
+    const users = db.collection("users");
 
-  const responseBody = {
-    id: id,
-    token: token,
-  };
+    const user = await users.findOne({ _id: new ObjectId(id) });
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify(responseBody),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
+    if (!user) return { statusCode: 400 };
 
-  // try {
-  //   const db = await connectToDatabase();
-  //   return `The type of myVariable is: ${typeof db}`;
+    if (user.token !== token) return { statusCode: 400 };
 
-  //   //   const collection = db.collection("users");
-
-  //   //   const document = await collection.findOne({ id });
-
-  //   //   if (!document) {
-  //   //     return { statusCode: 400 };
-  //   //   }
-
-  //   //   if (document.token === token) {
-  //   //     await collection.deleteOne({ id });
-  //   //     return { statusCode: 200 };
-  //   //   } else {
-  //   //     return { statusCode: 400 };
-  //   //   }
-  //   // } catch (error) {
-  //   //   return { statusCode: 500 };
-  //   // }
-  // } finally {
-  // }
+    await users.deleteOne({ _id: new ObjectId(id) });
+    return { statusCode: 200 };
+  } catch (error) {
+    return { statusCode: 500 };
+  }
 };
 
-export const main = async (args) => {
-  return await deleteAccount(args);
-};
+export const main = async (args) => await deleteAccount(args);

@@ -7,8 +7,12 @@
     "sync-libraries": "node -e \"const fs = require('fs'); const p = './packages/default'; fs.readdirSync(p).filter(d => fs.statSync(`${p}/${d}`).isDirectory()).forEach(d => fs.readdirSync('./lib').forEach(f => fs.copyFileSync(`./lib/${f}`, `${p}/${d}/${f}`)));\""
   },
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.614.0",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "mongodb": "^6.8.0"
+    "mongodb": "^6.8.0",
+    "nodemailer": "^6.9.14"
   },
   "devDependencies": {
     "shx": "^0.3.4"

@@ -7,15 +7,17 @@ import { validateToken } from "./packages/default/validate-token/script.js";
 
 const app = express();
 
-app.delete("/delete-account", (req, res) => {
-  const result = deleteAccount(req);
-  console.log(result);
-  res.status(200).json(result);
+// middleware to parse JSON bodies
+app.use(express.json());
+
+app.delete("/delete-account", async (req, res) => {
+  const result = await deleteAccount(req.body);
+  res.json(result);
 });
 
-app.get("/request-otp", (req, res) => {
-  const result = requestOTP({});
-  res.status(200).json(result);
+app.get("/request-otp", async (req, res) => {
+  const result = await requestOTP(req.body);
+  res.json(result);
 });
 
 app.post("/validate-otp", (req, res) => {
