@@ -75,7 +75,7 @@ export const requestOTP = async ({ id, email_address }) => {
     await transporter.sendMail(createMailOptions(email_address, otp));
     return { statusCode: 200 };
   } catch (error) {
-    return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
+    return { statusCode: 500, body: { error: error.message } };
   }
 };
 

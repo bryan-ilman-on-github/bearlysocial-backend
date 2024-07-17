@@ -1,0 +1,29 @@
+# Ignore everything by default.
+*
+
+# Allow everything under the lib/ directory and its subdirectories.
+!lib/
+!lib/**
+
+# Allow specific files at the root level.
+!.gitignore
+!package.json
+!project.yml
+!server.js
+
+# Allow specific files and directories under packages.
+!packages/default/delete-account/.include
+!packages/default/delete-account/package.json
+!packages/default/delete-account/script.js
+
+!packages/default/request-otp/.include
+!packages/default/request-otp/package.json
+!packages/default/request-otp/script.js
+
+!packages/default/validate-otp/.include
+!packages/default/validate-otp/package.json
+!packages/default/validate-otp/script.js
+
+!packages/default/validate-token/.include
+!packages/default/validate-token/package.json
+!packages/default/validate-token/script.js

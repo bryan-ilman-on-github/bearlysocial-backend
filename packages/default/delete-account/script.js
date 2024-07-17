@@ -1,4 +1,3 @@
-import { ObjectId } from "mongodb";
 import { connectToDatabase } from "./mongodb-client.js";
 
 export const deleteAccount = async ({ id, token }) => {
@@ -6,13 +5,13 @@ export const deleteAccount = async ({ id, token }) => {
     const db = await connectToDatabase();
     const users = db.collection("users");
 
-    const user = await users.findOne({ _id: new ObjectId(id) });
+    const user = await users.findOne({ _id: id });
 
     if (!user) return { statusCode: 400 };
 
     if (user.token !== token) return { statusCode: 400 };
 
-    await users.deleteOne({ _id: new ObjectId(id) });
+    await users.deleteOne({ _id: id });
     return { statusCode: 200 };
   } catch (error) {
     return { statusCode: 500 };
